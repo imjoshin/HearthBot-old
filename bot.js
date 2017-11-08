@@ -21,8 +21,8 @@ bot.on('ready', function (evt) {
 });
 
 bot.on('message', function (user, userID, channelID, message, evt) {
-	// check if we are allowed to post here
-	if (config.CHANNEL_WHITELIST.length && config.CHANNEL_WHITELIST.indexOf(channelID) < 0) {
+	// check if we are allowed to post here and this isn't a bot message
+	if (config.CHANNEL_WHITELIST.length && config.CHANNEL_WHITELIST.indexOf(channelID) < 0 || userID == bot.id) {
 		return;
 	};
 
@@ -30,7 +30,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	if (config.ALLOW_CARDS) {
 		var cards = message.match(/\[\[(.*?)\]\]/g);
 		if (cards && cards.length) {
-
 			// limit number of cards
 			cards = cards.slice(0, config.CARD_LIMIT);
 
@@ -50,6 +49,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 							message: card['img']
 						});
 					}
+				});
+			});
+		}
+	}
+
+	if (config.ALLOW_DECKS) {
+		var decks = message.match(/AAE(.*?)=/g);
+
+		if (decks && decks.length) {
+			// limit number of decks
+			decks = decks.slice(0, config.DECK_LIMIT);
+
+			decks.forEach(function(deck) {
+				bot.sendMessage({
+					to: channelID,
+					message: deck
 				});
 			});
 		}
