@@ -1,0 +1,13 @@
+{
+  "name": "HearthBot",
+  "version": "1.0.0",
+  "description": "Discord bot for displaying card images and deck lists",
+  "main": "bot.js",
+  "author": "Josh Johnson",
+  "dependencies": {
+    "winston": "~2.4.0",
+    "discord.io": "~2.5.3",
+    "node-fetch": "~1.7.3",
+    "bluebird": "~3.5.1"
+  }
+}
