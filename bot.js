@@ -98,7 +98,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					if (!("error" in cardData)) {
 						bot.sendMessage({
 							to: channelID,
-							message: formatDeck(decoded, cardData)
+							embed: formatDeck(decoded, cardData)
 						});
 					} else {
 						logger.error(cardData['error']);
@@ -110,10 +110,56 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 function formatDeck(deckData, cardData) {
-	var print = "";
+	var blankField = {"value": ""};
+
+	var classCards = [];
+	var neutralCards = [];
+
 	deckData['cards'].forEach(function(card) {
-		print += card[1] + "x " + cardData[card[0]]['name'] + " (" + cardData[card[0]]['cost'] + ")" + "\n";
+		cardData[card[0]]['count'] = card[1];
+
+		if (cardData[card[0]]['class'] != 'Neutral') {
+			classCards.push(cardData[card[0]])
+		} else {
+			neutralCards.push(cardData[card[0]])
+		}
 	});
 
-	return print;
+	var classCardsText = [];
+	var neutralCardsText = [];
+
+	classCards.sort(function(a, b) {
+	    return a['cost'] - b['cost'];
+	});
+	neutralCards.sort(function(a, b) {
+	    return a['cost'] - b['cost'];
+	});
+
+	classCards.forEach(function(card) {
+		classCardsText.push(formatCard(card));
+	});
+	neutralCards.forEach(function(card) {
+		neutralCardsText.push(formatCard(card));
+	});
+
+	var fields = [
+		{
+			"name": "Class Cards",
+			"value": classCardsText.join('\n'),
+			"inline": true
+		},
+		{
+			"name": "Neutral Cards",
+			"value": neutralCardsText.join('\n'),
+			"inline": true
+		}
+	];
+
+	return {
+		"fields": fields
+	};
+}
+
+function formatCard(card) {
+	return card['count'] + "x [" + card['name'] + "](" + card['img'] + ") (" + card['cost'] + ")";
 }
