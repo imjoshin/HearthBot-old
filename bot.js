@@ -30,15 +30,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	if (config.ALLOW_CARDS) {
 		var cards = message.match(/\[\[(.*?)\]\]/g);
 		if (cards && cards.length) {
-			
+
 			// limit number of cards
 			cards = cards.slice(0, config.CARD_LIMIT);
 
 			cards.forEach(function(card) {
 				name = card.replace(/\[/g, '').replace(/\]/g, '');
+				collectible = config.COLLECTIBLE_ONLY ? "&collectible=1" : "";
 
 				// get card data
-				fetch(config.API_URL + name, {method: 'GET'})
+				fetch(config.API_URL + name + collectible, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
