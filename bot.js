@@ -32,14 +32,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 		var cards = message.match(/\[\[(.*?)\]\]/g);
 		if (cards && cards.length) {
 			// limit number of cards
-			cards = cards.slice(0, config.CARD_LIMIT);
+			cardsSent = 0
 
 			cards.forEach(function(card) {
-				name = "name=" + card.replace(/\[/g, '').replace(/\]/g, '');
+				name = card.replace(/\[/g, '').replace(/\]/g, '');
 				collectible = config.COLLECTIBLE_ONLY ? "&collectible=1" : "";
 
+				if (name.length < config.CARD_LENGTH_MIN || cardsSent >= config.CARD_LIMIT) {
+					return
+				}
+
 				// get card data
-				fetch(config.API_URL + name + collectible, {method: 'GET'})
+				fetch(config.API_URL + "name=" + name + collectible, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
@@ -47,10 +51,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					if (!("error" in card)) {
 						bot.sendMessage({
 							to: channelID,
-							message: card['img']
+							embed: {
+								"image": {
+									"url": card['img']
+								}
+							}
 						});
 					}
 				});
+
+				cardsSent++;
 			});
 		}
 	}

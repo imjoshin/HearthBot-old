@@ -2,6 +2,7 @@ var config = {};
 
 config.ALLOW_CARDS = true;
 config.CARD_LIMIT = 4;
+config.CARD_LENGTH_MIN = 3;
 config.COLLECTIBLE_ONLY = true;
 
 config.ALLOW_DECKS = true;
