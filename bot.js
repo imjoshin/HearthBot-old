@@ -30,29 +30,23 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	if (config.ALLOW_CARDS) {
 		var cards = message.match(/\[\[(.*?)\]\]/g);
 		if (cards && cards.length) {
+			
+			// limit number of cards
+			cards = cards.slice(0, config.CARD_LIMIT);
+
 			cards.forEach(function(card) {
 				name = card.replace(/\[/g, '').replace(/\]/g, '');
 
-				// search API
-				headers = {"X-Mashape-Key": auth.API_KEY};
-				fetch(config.API_URL + name, {method: 'GET', headers: headers})
+				// get card data
+				fetch(config.API_URL + name, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
-				.then(function(receivedCards) {
-					if (receivedCards.length) {
-						receivedCards.some(function(testCard) {
-							testName = testCard['name'].toLowerCase();
-							if (testName == name) {
-								// send image
-								bot.sendMessage({
-									to: channelID,
-									message: testCard['img']
-								});
-
-								// break loop
-								return true;
-							}
+				.then(function(card) {
+					if (!("error" in card)) {
+						bot.sendMessage({
+							to: channelID,
+							message: card['img']
 						});
 					}
 				});

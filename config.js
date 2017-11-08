@@ -1,7 +1,10 @@
 var config = {};
 
 config.ALLOW_CARDS = true;
+config.CARD_LIMIT = 4;
+
 config.ALLOW_DECKS = true;
+config.DECK_LIMIT = 1;
 
 config.CHANNEL_WHITELIST = [
 	"377269780383531011"
@@ -65,6 +68,6 @@ config.CLASSES = {
 	}
 };
 
-config.API_URL = "https://omgvamp-hearthstone-v1.p.mashape.com/cards/search/";
+config.API_URL = "http://joshjohnson.io/projects/hearthdetect/data.php?name=";
 
 module.exports = config;

@@ -1,4 +1,3 @@
 auth = {};
 
 auth.TOKEN = "TOKEN";
-auth.API_KEY = "KEY";
