@@ -69,6 +69,6 @@ config.CLASSES = {
 	}
 };
 
-config.API_URL = "http://joshjohnson.io/projects/hearthdetect/data.php?name=";
+config.API_URL = "http://joshjohnson.io/projects/hearthdetect/data.php?";
 
 module.exports = config;

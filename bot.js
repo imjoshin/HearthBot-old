@@ -2,6 +2,7 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth');
 var config = require('./config');
+var deckstrings = require('deckstrings');
 var fetch = require('node-fetch');
 fetch.Promise = require('bluebird');
 
@@ -34,7 +35,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			cards = cards.slice(0, config.CARD_LIMIT);
 
 			cards.forEach(function(card) {
-				name = card.replace(/\[/g, '').replace(/\]/g, '');
+				name = "name=" + card.replace(/\[/g, '').replace(/\]/g, '');
 				collectible = config.COLLECTIBLE_ONLY ? "&collectible=1" : "";
 
 				// get card data
@@ -62,11 +63,47 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 			decks = decks.slice(0, config.DECK_LIMIT);
 
 			decks.forEach(function(deck) {
-				bot.sendMessage({
-					to: channelID,
-					message: deck
+				try {
+					decoded = deckstrings.decode(deck);
+				} catch (err){
+					logger.error("Error decoding deck string: '" + deck + "'");
+					return;
+				}
+
+				// get list of card ids
+				ids = [];
+				decoded['cards'].forEach(function(card) {
+					ids.push(card[0]);
+				});
+				decoded['heroes'].forEach(function(hero) {
+					ids.push(hero[0]);
+				});
+
+				// get card data
+				fetch(config.API_URL + "id=" + ids.join(','), {method: 'GET'})
+				.then(function(response) {
+					return response.json();
+				})
+				.then(function(cardData) {
+					if (!("error" in cardData)) {
+						bot.sendMessage({
+							to: channelID,
+							message: formatDeck(decoded, cardData)
+						});
+					} else {
+						logger.error(cardData['error']);
+					}
 				});
 			});
 		}
 	}
 });
+
+function formatDeck(deckData, cardData) {
+	var print = "";
+	deckData['cards'].forEach(function(card) {
+		print += card[1] + "x " + cardData[card[0]]['name'] + " (" + cardData[card[0]]['cost'] + ")" + "\n";
+	});
+
+	return print;
+}
