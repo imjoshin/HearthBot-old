@@ -92,7 +92,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					ids.push(card[0]);
 				});
 				decoded['heroes'].forEach(function(hero) {
-					ids.push(hero[0]);
+					ids.push(hero);
 				});
 
 				// get card data
@@ -120,6 +120,14 @@ function formatDeck(deckData, cardData) {
 
 	var classCards = [];
 	var neutralCards = [];
+	var dust = 0;
+	var classes = [];
+
+	deckData['heroes'].forEach(function(hero) {
+		classes.push(cardData[hero]['class']);
+	});
+
+	var deckClass = classes.join(',');
 
 	deckData['cards'].forEach(function(card) {
 		cardData[card[0]]['count'] = card[1];
@@ -129,6 +137,9 @@ function formatDeck(deckData, cardData) {
 		} else {
 			neutralCards.push(cardData[card[0]])
 		}
+
+		rarity = cardData[card[0]]['rarity'];
+		dust += config.RARITIES[rarity]['dust'] * card[1];
 	});
 
 	var classCardsText = [];
@@ -150,7 +161,7 @@ function formatDeck(deckData, cardData) {
 
 	var fields = [
 		{
-			"name": "Class Cards",
+			"name": (classes.length == 1 ? deckClass : "Class") + " Cards",
 			"value": classCardsText.join('\n'),
 			"inline": true
 		},
@@ -162,7 +173,12 @@ function formatDeck(deckData, cardData) {
 	];
 
 	return {
-		"fields": fields
+		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : 0x34363B),
+		"fields": fields,
+		"footer": {
+			"icon_url": "http://joshjohnson.io/images/dust.png",
+			"text": dust
+		}
 	};
 }
 

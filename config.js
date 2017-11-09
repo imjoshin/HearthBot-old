@@ -20,53 +20,58 @@ config.FORMATS = {
 config.RARITIES = {
 	"Legendary": {
 		"color": "#FDB90E",
-		"emoji": ":legendary-gem:"
+		"emoji": ":legendary-gem:",
+		"dust": "1600",
 	},
 	"Epic": {
 		"color": "#893BA0",
-		"emoji": ":epic-gem:"
+		"emoji": ":epic-gem:",
+		"dust": "400",
 	},
 	"Rare": {
 		"color": "#337FDF",
-		"emoji": ":rare-gem:"
+		"emoji": ":rare-gem:",
+		"dust": "100",
 	},
 	"Common": {
 		"color": "#8D9695",
-		"emoji": ":common-gem:"
+		"emoji": ":common-gem:",
+		"dust": "40",
 	},
 	"Free": {
 		"color": "#8D9695",
-		"emoji": ":common-gem:"
+		"emoji": ":common-gem:",
+		"dust": "0",
 	}
 };
 
 config.CLASSES = {
 	"Druid": {
-		"color": "#7A4929"
+		"color": 0x7A4929
 	},
 	"Hunter": {
-		"color": "#02aa00"
+		"color": 0x02aa00
 	},
 	"Mage": {
-		"color": "#006eff"
+		"color": 0x006eff
 	},
 	"Paladin": {
-		"color": "#ffff54"
+		"color": 0xffff54
 	},
 	"Priest": {
-		"color": "#c9c9c9"
+		"color": 0xc9c9c9
 	},
 	"Rogue": {
-		"color": "#474747"
+		"color": 0x474747
 	},
 	"Shaman": {
-		"color": "#42ffe5"
+		"color": 0x42ffe5
 	},
 	"Warlock": {
-		"color": "#8600c9"
+		"color": 0x8600c9
 	},
 	"Warrior": {
-		"color": "#c90000"
+		"color": 0xc90000
 	}
 };
 
