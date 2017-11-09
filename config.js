@@ -4,6 +4,7 @@ config.ALLOW_CARDS = true;
 config.CARD_LIMIT = 4;
 config.CARD_LENGTH_MIN = 3;
 config.COLLECTIBLE_ONLY = true;
+config.PRINT_CARD_DETAILS = true;
 
 config.ALLOW_DECKS = true;
 config.DECK_LIMIT = 1;
@@ -72,6 +73,9 @@ config.CLASSES = {
 	},
 	"Warrior": {
 		"color": 0xc90000
+	},
+	"Neutral": {
+		"color": 0x34363B
 	}
 };
 

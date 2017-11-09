@@ -55,13 +55,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				})
 				.then(function(card) {
 					if (!("error" in card)) {
-						bot.sendMessage({
-							to: channelID,
-							embed: {
+						if (config.PRINT_CARD_DETAILS) {
+							embed = formatCard(card);
+						} else {
+							embed = {
 								"image": {
 									"url": card['img']
 								}
-							}
+							};
+						}
+
+						bot.sendMessage({
+							to: channelID,
+							embed: embed
 						});
 					}
 				});
@@ -115,6 +121,26 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	}
 });
 
+function formatCard(card) {
+	var details = "**Type**: asdf\n**Class**: " + card['class'] + "\n**Rarity**: " + card['rarity'];
+	var flavor = "*Battlecry: Card text here*";
+	var set = "Set: Test Set Blah";
+	return {
+		"author": {
+			"name": card['name'],
+			"icon_url": "http://joshjohnson.io/images/dust.png" // TODO update this
+		},
+		"color": config.CLASSES[card['class']]['color'],
+		"description": details + "\n\n" + flavor,
+		"footer": {
+			"text": set
+		},
+		"thumbnail": {
+			"url": card['img']
+		}
+	}
+}
+
 function formatDeck(deckData, cardData) {
 	var blankField = {"value": ""};
 
@@ -153,10 +179,10 @@ function formatDeck(deckData, cardData) {
 	});
 
 	classCards.forEach(function(card) {
-		classCardsText.push(formatCard(card));
+		classCardsText.push(formatDeckCard(card));
 	});
 	neutralCards.forEach(function(card) {
-		neutralCardsText.push(formatCard(card));
+		neutralCardsText.push(formatDeckCard(card));
 	});
 
 	var fields = [
@@ -173,7 +199,7 @@ function formatDeck(deckData, cardData) {
 	];
 
 	return {
-		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : 0x34363B),
+		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : config.CLASSES['Neutral']['color']),
 		"fields": fields,
 		"footer": {
 			"icon_url": "http://joshjohnson.io/images/dust.png",
@@ -182,6 +208,6 @@ function formatDeck(deckData, cardData) {
 	};
 }
 
-function formatCard(card) {
+function formatDeckCard(card) {
 	return card['count'] + "x [" + card['name'] + "](" + card['img'] + ") (" + card['cost'] + ")";
 }
