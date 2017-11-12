@@ -1,14 +1,19 @@
 var config = {};
 
+// Card config
 config.ALLOW_CARDS = true;
-config.CARD_LIMIT = 4;
-config.CARD_LENGTH_MIN = 3;
-config.COLLECTIBLE_ONLY = true;
-config.PRINT_CARD_DETAILS = true;
+config.CARD_LIMIT = 4; // max cards to print from one message
+config.CARD_LENGTH_MIN = 3; // minimum card string length to search
+config.COLLECTIBLE_ONLY = true; // only show collectible cards
+config.PRINT_CARD_DETAILS = true; // print details instead of the card image
+config.ALLOW_CARD_ONLY = true; // allow suffix to only show card
+config.CARD_ONLY_SUFFIX = "+c"; // suffix to only show card
 
+// Deck config
 config.ALLOW_DECKS = true;
-config.DECK_LIMIT = 1;
+config.DECK_LIMIT = 1; // max decks to print from one message
 
+// Misc Settings
 config.CHANNEL_WHITELIST = [
 	"377269780383531011"
 ];
