@@ -132,6 +132,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 function formatCard(card) {
 	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
 
+	// bold keywords
+	config.KEYWORDS.forEach(function(keyword) {
+		var regex = new RegExp("(" + keyword + ":?)", "g");
+		cardText = cardText.replace(regex, "**$1**");
+	});
+
 	var details = "**Type**: " + card['type'] + "\n**Class**: " + card['class'] + "\n**Rarity**: " + card['rarity'];
 	var text = "*" + cardText + "*";
 	var set = "Set: " + card['set'];
@@ -140,7 +146,7 @@ function formatCard(card) {
 			"name": card['name'],
 			"icon_url": "http://joshjohnson.io/projects/hearthdetect/img/mana-" + card['cost'] + ".png"
 		},
-		"color": config.CLASSES[card['class']]['color'],
+		"color": config.RARITIES[card['rarity']]['color'],
 		"description": details + "\n\n" + text,
 		"footer": {
 			"text": set

@@ -8,6 +8,32 @@ config.COLLECTIBLE_ONLY = true; // only show collectible cards
 config.PRINT_CARD_DETAILS = true; // print details instead of the card image
 config.ALLOW_CARD_ONLY = true; // allow suffix to only show card
 config.CARD_ONLY_SUFFIX = "+c"; // suffix to only show card
+config.KEYWORDS = [ // keywords to bold
+	"Adapt",
+	"Battlecry",
+	"Charge",
+	"Choose One",
+	"Combo",
+	"Counter",
+	"Deathrattle",
+	"Discover",
+	"Divine Shield",
+	"Enrage",
+	"Freeze",
+	"Immune",
+	"Inspire",
+	"Lifesteal",
+	"Mega-Windury",
+	"Overload",
+	"Poisonous",
+	"Quest",
+	"Secret",
+	"Silence",
+	"Stealth",
+	"Spell Damage",
+	"Taunt",
+	"Windfury"
+]
 
 // Deck config
 config.ALLOW_DECKS = true;
@@ -25,27 +51,27 @@ config.FORMATS = {
 
 config.RARITIES = {
 	"Legendary": {
-		"color": "#FDB90E",
+		"color": 0xFDB90E,
 		"emoji": ":legendary-gem:",
 		"dust": "1600",
 	},
 	"Epic": {
-		"color": "#893BA0",
+		"color": 0x893BA0,
 		"emoji": ":epic-gem:",
 		"dust": "400",
 	},
 	"Rare": {
-		"color": "#337FDF",
+		"color": 0x337FDF,
 		"emoji": ":rare-gem:",
 		"dust": "100",
 	},
 	"Common": {
-		"color": "#8D9695",
+		"color": 0x8D9695,
 		"emoji": ":common-gem:",
 		"dust": "40",
 	},
 	"Free": {
-		"color": "#8D9695",
+		"color": 0x8D9695,
 		"emoji": ":common-gem:",
 		"dust": "0",
 	}
