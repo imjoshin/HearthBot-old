@@ -23,7 +23,7 @@ bot.on('ready', function (evt) {
 
 // reconnect
 bot.on('disconnect', function(erMsg, code) {
-    logger.info('----- Bot disconnected from Discord with code' + code + 'for reason:' + erMsg + ' -----');
+    logger.info('----- Bot disconnected from Discord with code ' + code + 'for reason: ' + erMsg + ' -----');
     bot.connect();
 });
 
@@ -78,7 +78,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	}
 
 	if (config.ALLOW_DECKS) {
-		var decks = message.match(/AAE(.*?)=/g);
+		var decks = message.match(/AAE(.*?)(=|$)/g);
 
 		if (decks && decks.length) {
 			// limit number of decks
@@ -122,16 +122,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 function formatCard(card) {
-	var details = "**Type**: asdf\n**Class**: " + card['class'] + "\n**Rarity**: " + card['rarity'];
-	var flavor = "*Battlecry: Card text here*";
-	var set = "Set: Test Set Blah";
+	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+
+	var details = "**Type**: " + card['type'] + "\n**Class**: " + card['class'] + "\n**Rarity**: " + card['rarity'];
+	var text = "*" + cardText + "*";
+	var set = "Set: " + card['set'];
 	return {
 		"author": {
 			"name": card['name'],
-			"icon_url": "http://joshjohnson.io/images/dust.png" // TODO update this
+			"icon_url": "http://joshjohnson.io/projects/hearthdetect/img/mana-" + card['cost'] + ".png"
 		},
 		"color": config.CLASSES[card['class']]['color'],
-		"description": details + "\n\n" + flavor,
+		"description": details + "\n\n" + text,
 		"footer": {
 			"text": set
 		},
@@ -187,7 +189,7 @@ function formatDeck(deckData, cardData) {
 
 	var fields = [
 		{
-			"name": (classes.length == 1 ? deckClass : "Class") + " Cards",
+			"name": "Class Cards",
 			"value": classCardsText.join('\n'),
 			"inline": true
 		},
@@ -199,6 +201,10 @@ function formatDeck(deckData, cardData) {
 	];
 
 	return {
+		"author": {
+			"name": deckClass + " (" + (deckData['format'] == 1 ? "Wild" : "Standard") + ")",
+			"icon_url": (classes.length == 1 ? config.CLASSES[deckClass]['icon'] : "")
+		},
 		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : config.CLASSES['Neutral']['color']),
 		"fields": fields,
 		"footer": {
@@ -209,5 +215,5 @@ function formatDeck(deckData, cardData) {
 }
 
 function formatDeckCard(card) {
-	return card['count'] + "x [" + card['name'] + "](" + card['img'] + ") (" + card['cost'] + ")";
+	return "• " + card['count'] + "x " + card['name'];
 }
