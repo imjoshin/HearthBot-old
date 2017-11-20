@@ -138,7 +138,7 @@ function formatCard(card) {
 		cardText = cardText.replace(regex, "**$1**");
 	});
 
-	var details = "**Type**: " + card['type'] + "\n**Class**: " + card['class'] + "\n**Rarity**: " + card['rarity'];
+	var details = "**Type:** " + card['type'] + "\n**Class:** " + card['class'] + "\n**Rarity:** " + card['rarity'];
 	var text = "*" + cardText + "*";
 	var set = "Set: " + card['set'];
 	return {

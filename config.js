@@ -27,6 +27,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Overload",
 	"Poisonous",
 	"Quest",
+	"Recruit",
 	"Secret",
 	"Silence",
 	"Stealth",
@@ -80,39 +81,39 @@ config.RARITIES = {
 config.CLASSES = {
 	"Druid": {
 		"color": 0x7A4929,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Druid.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Druid.png"
 	},
 	"Hunter": {
 		"color": 0x027c00,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Hunter.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Hunter.png"
 	},
 	"Mage": {
 		"color": 0x006eff,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Mage.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Mage.png"
 	},
 	"Paladin": {
 		"color": 0xcec400,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Paladin.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Paladin.png"
 	},
 	"Priest": {
 		"color": 0xc9c9c9,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Priest.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Priest.png"
 	},
 	"Rogue": {
 		"color": 0x474747,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Rogue.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Rogue.png"
 	},
 	"Shaman": {
 		"color": 0x42ffe5,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Shaman.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Shaman.png"
 	},
 	"Warlock": {
 		"color": 0x8855b2,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Warlock.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Warlock.png"
 	},
 	"Warrior": {
 		"color": 0xa80000,
-		"icon": "http://joshjohnson.io/projects/hearthdetect/img/Warrior.png"
+		"icon": "http://joshjohnson.io/projects/hearthbot/img/Warrior.png"
 	},
 	"Neutral": {
 		"color": 0x34363B,
@@ -120,6 +121,6 @@ config.CLASSES = {
 	}
 };
 
-config.API_URL = "http://joshjohnson.io/projects/hearthdetect/data.php?";
+config.API_URL = "http://joshjohnson.io/projects/hearthbot/data.php?";
 
 module.exports = config;
