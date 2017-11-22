@@ -121,6 +121,6 @@ config.CLASSES = {
 	}
 };
 
-config.API_URL = "http://joshjohnson.io/projects/hearthbot/data.php?";
+config.API_URL = "http://jjdev.io/hearthbot/data.php?";
 
 module.exports = config;

@@ -130,12 +130,19 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 function formatCard(card) {
-	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
 
 	// bold keywords
 	config.KEYWORDS.forEach(function(keyword) {
-		var regex = new RegExp("(" + keyword + ":?)", "g");
-		cardText = cardText.replace(regex, "**$1**");
+		if (cardText.indexOf(keyword) >= 0)
+		{
+			if (keyword == "Recruit") {
+				var regex = new RegExp("^(?!Silver Hand )(Recruit[\.|:]?)", "g");
+			} else {
+				var regex = new RegExp("(" + keyword + "[\.|:]?)", "g");
+			}
+			cardText = cardText.replace(regex, "**$1**");
+		}
 	});
 
 	var details = "**Type:** " + card['type'] + "\n**Class:** " + card['class'] + "\n**Rarity:** " + card['rarity'];
