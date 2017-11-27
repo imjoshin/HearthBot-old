@@ -55,8 +55,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					name = name.slice(0, -1 * config.CARD_ONLY_SUFFIX.length);
 				}
 
+				var searchType = showDetails ? '&t=detail' : '&t=card';
+
 				// get card data
-				fetch(config.API_URL + "name=" + name + collectible, {method: 'GET'})
+				fetch(config.API_URL + "name=" + name + collectible + searchType, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
@@ -151,7 +153,7 @@ function formatCard(card) {
 	return {
 		"author": {
 			"name": card['name'],
-			"icon_url": "http://joshjohnson.io/projects/hearthdetect/img/mana-" + card['cost'] + ".png"
+			"icon_url": "https://jjdev.io/hearthbot/img/mana-" + card['cost'] + ".png"
 		},
 		"color": config.RARITIES[card['rarity']]['color'],
 		"description": details + "\n\n" + text,
