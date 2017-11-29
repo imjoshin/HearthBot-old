@@ -151,19 +151,17 @@ function formatCard(card) {
 		}
 	});
 
-	// get stats
-	var attack = 'attack' in card && card['attack'] != null ? (config.ATTACK_EMOJI + ' `' + card['attack'] + '`  ') : '';
-	var health = 'health' in card && card['health'] != null ? (config.HEALTH_EMOJI + ' `' + card['health'] + '`  ') : '';
-
-	if (card['type'] == "Weapon") {
-		var health = 'health' in card && card['health'] != null ? (config.DURABILITY_EMOJI + ' `' + card['health'] + '`  ') : '';
-	}
-
 	// get details
-	var stats = (attack != '' || health != '') ? (attack + health + "\n\n") : "";
 	var type = "**Type:** " + card['type'] + "\n";
 	var classt = "**Class:** " + card['class'] + "\n";
 	var rarity = "**Rarity:** " + card['rarity'];
+
+	// get stats
+	var attackEmoji = card['type'] == 'Weapon' ? config.WEAPON_ATTACK_EMOJI : config.ATTACK_EMOJI;
+	var healthEmoji = card['type'] == 'Weapon' ? config.WEAPON_HEALTH_EMOJI : config.HEALTH_EMOJI;
+	var attack = 'attack' in card && card['attack'] != null ? (attackEmoji + ' `' + card['attack'] + '`  ') : '';
+	var health = 'health' in card && card['health'] != null ? (healthEmoji + ' `' + card['health'] + '`  ') : '';
+	var stats = (attack != '' || health != '') ? (attack + health + "\n\n") : "";
 
 	// other info
 	var text = cardText != '' ? ("\n\n*" + cardText + "*") : '';

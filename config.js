@@ -52,7 +52,8 @@ config.CHANNEL_BLACKLIST = [
 // Emoji Settings
 config.ATTACK_EMOJI = "<:attack:385274433830649869>";
 config.HEALTH_EMOJI = "<:health:385274434203680788>";
-config.DURABILITY_EMOJI = "D:";
+config.WEAPON_ATTACK_EMOJI = "<:weapon_attack:385567336272363530>";
+config.WEAPON_HEALTH_EMOJI = "<:weapon_dur:385567315330072586>";
 
 config.FORMATS = {
 	"1": "Wild",
