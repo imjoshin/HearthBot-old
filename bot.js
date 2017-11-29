@@ -160,13 +160,13 @@ function formatCard(card) {
 	}
 
 	// get details
-	var stats = (attack != '' || health != '') ? (attack + health + "\n") : "";
+	var stats = (attack != '' || health != '') ? (attack + health + "\n\n") : "";
 	var type = "**Type:** " + card['type'] + "\n";
 	var classt = "**Class:** " + card['class'] + "\n";
 	var rarity = "**Rarity:** " + card['rarity'];
 
 	// other info
-	var text = "*" + cardText + "*";
+	var text = cardText != '' ? ("\n\n*" + cardText + "*") : '';
 	var set = "Set: " + card['set'];
 
 	return {
@@ -175,7 +175,7 @@ function formatCard(card) {
 			"icon_url": "https://jjdev.io/hearthbot/img/mana-" + card['cost'] + ".png"
 		},
 		"color": config.RARITIES[card['rarity']]['color'],
-		"description": stats + type + classt + rarity + "\n\n" + text,
+		"description": stats + type + classt + rarity + text,
 		"footer": {
 			"text": set
 		},
