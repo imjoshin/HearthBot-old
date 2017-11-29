@@ -41,9 +41,18 @@ config.ALLOW_DECKS = true;
 config.DECK_LIMIT = 1; // max decks to print from one message
 
 // Misc Settings
-config.CHANNEL_WHITELIST = [
-	"377269780383531011"
+
+// only use whitelist OR blacklist
+config.CHANNEL_WHITELIST = [];
+config.CHANNEL_BLACKLIST = [
+	"377296505096110080",
+	"301092519981088771"
 ];
+
+// Emoji Settings
+config.ATTACK_EMOJI = "<:attack:385274433830649869>";
+config.HEALTH_EMOJI = "<:health:385274434203680788>";
+config.DURABILITY_EMOJI = "D:";
 
 config.FORMATS = {
 	"1": "Wild",
@@ -81,39 +90,39 @@ config.RARITIES = {
 config.CLASSES = {
 	"Druid": {
 		"color": 0x7A4929,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Druid.png"
+		"icon": "https://jjdev.io/hearthbot/img/Druid.png"
 	},
 	"Hunter": {
 		"color": 0x027c00,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Hunter.png"
+		"icon": "https://jjdev.io/hearthbot/img/Hunter.png"
 	},
 	"Mage": {
 		"color": 0x006eff,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Mage.png"
+		"icon": "https://jjdev.io/hearthbot/img/Mage.png"
 	},
 	"Paladin": {
 		"color": 0xcec400,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Paladin.png"
+		"icon": "https://jjdev.io/hearthbot/img/Paladin.png"
 	},
 	"Priest": {
 		"color": 0xc9c9c9,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Priest.png"
+		"icon": "https://jjdev.io/hearthbot/img/Priest.png"
 	},
 	"Rogue": {
 		"color": 0x474747,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Rogue.png"
+		"icon": "https://jjdev.io/hearthbot/img/Rogue.png"
 	},
 	"Shaman": {
 		"color": 0x42ffe5,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Shaman.png"
+		"icon": "https://jjdev.io/hearthbot/img/Shaman.png"
 	},
 	"Warlock": {
 		"color": 0x8855b2,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Warlock.png"
+		"icon": "https://jjdev.io/hearthbot/img/Warlock.png"
 	},
 	"Warrior": {
 		"color": 0xa80000,
-		"icon": "http://joshjohnson.io/projects/hearthbot/img/Warrior.png"
+		"icon": "https://jjdev.io/hearthbot/img/Warrior.png"
 	},
 	"Neutral": {
 		"color": 0x34363B,

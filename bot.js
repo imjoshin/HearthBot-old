@@ -35,7 +35,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 		userID == bot.id
 	) {
 		return;
-	}; 
+	};
 
 	// check for [[card]]
 	if (config.ALLOW_CARDS) {
@@ -151,16 +151,31 @@ function formatCard(card) {
 		}
 	});
 
-	var details = "**Type:** " + card['type'] + "\n**Class:** " + card['class'] + "\n**Rarity:** " + card['rarity'];
+	// get stats
+	var attack = 'attack' in card && card['attack'] != null ? (config.ATTACK_EMOJI + ' `' + card['attack'] + '`  ') : '';
+	var health = 'health' in card && card['health'] != null ? (config.HEALTH_EMOJI + ' `' + card['health'] + '`  ') : '';
+
+	if (card['type'] == "Weapon") {
+		var health = 'health' in card && card['health'] != null ? (config.DURABILITY_EMOJI + ' `' + card['health'] + '`  ') : '';
+	}
+
+	// get details
+	var stats = (attack != '' || health != '') ? (attack + health + "\n") : "";
+	var type = "**Type:** " + card['type'] + "\n";
+	var classt = "**Class:** " + card['class'] + "\n";
+	var rarity = "**Rarity:** " + card['rarity'];
+
+	// other info
 	var text = "*" + cardText + "*";
 	var set = "Set: " + card['set'];
+
 	return {
 		"author": {
 			"name": card['name'],
 			"icon_url": "https://jjdev.io/hearthbot/img/mana-" + card['cost'] + ".png"
 		},
 		"color": config.RARITIES[card['rarity']]['color'],
-		"description": details + "\n\n" + text,
+		"description": stats + type + classt + rarity + "\n\n" + text,
 		"footer": {
 			"text": set
 		},
