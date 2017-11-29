@@ -159,8 +159,8 @@ function formatCard(card) {
 	// get stats
 	var attackEmoji = card['type'] == 'Weapon' ? config.WEAPON_ATTACK_EMOJI : config.ATTACK_EMOJI;
 	var healthEmoji = card['type'] == 'Weapon' ? config.WEAPON_HEALTH_EMOJI : config.HEALTH_EMOJI;
-	var attack = 'attack' in card && card['attack'] != null ? (attackEmoji + ' `' + card['attack'] + '`  ') : '';
-	var health = 'health' in card && card['health'] != null ? (healthEmoji + ' `' + card['health'] + '`  ') : '';
+	var attack = 'attack' in card && card['attack'] != null ? (attackEmoji + ' **' + card['attack'] + '**  ') : '';
+	var health = 'health' in card && card['health'] != null ? (healthEmoji + ' **' + card['health'] + '**  ') : '';
 	var stats = (attack != '' || health != '') ? (attack + health + "\n\n") : "";
 
 	// other info
@@ -255,5 +255,6 @@ function formatDeck(deckData, cardData) {
 }
 
 function formatDeckCard(card) {
-	return "• " + card['count'] + "x " + card['name'];
+	var emoji = card['cost'] in config.MANA_EMOJI ? config.MANA_EMOJI[card['cost']] : card['cost']
+	return emoji + " " + card['count'] + "x " + card['name'];
 }
