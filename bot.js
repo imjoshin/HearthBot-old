@@ -60,9 +60,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				}
 
 				var searchType = showDetails ? '&t=detail' : '&t=card';
+				var details = "&key=" + auth.KEY + "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 
 				// get card data
-				fetch(config.API_URL + "name=" + name + collectible + searchType, {method: 'GET'})
+				fetch(config.API_URL + "name=" + name + collectible + searchType + details, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
