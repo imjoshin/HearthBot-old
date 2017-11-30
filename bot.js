@@ -117,15 +117,16 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				});
 
 				// get card data
-				fetch(config.API_URL + "id=" + ids.join(','), {method: 'GET'})
+				fetch(config.API_URL + "id=" + ids.join(',') + "&key=" + auth.KEY, {method: 'GET'})
 				.then(function(response) {
 					return response.json();
 				})
 				.then(function(cardData) {
+					userInfo = "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 					if (!("error" in cardData)) {
 						bot.sendMessage({
 							to: channelID,
-							embed: formatDeck(decoded, cardData)
+							embed: formatDeck(decoded, cardData, deck, userInfo)
 						});
 					} else {
 						logger.error(cardData['error']);
@@ -184,7 +185,7 @@ function formatCard(card) {
 	}
 }
 
-function formatDeck(deckData, cardData) {
+function formatDeck(deckData, cardData, deck, userInfo) {
 	var blankField = {"value": ""};
 
 	var classCards = [];
@@ -228,6 +229,18 @@ function formatDeck(deckData, cardData) {
 		neutralCardsText.push(formatDeckCard(card));
 	});
 
+	var format = deckData['format'] == 1 ? "Wild" : "Standard";
+
+	// log deck in db (will probably replace with parsing on api side eventually)
+	var url = config.API_URL + userInfo +
+		"&deck=" + deck +
+		"&f=" + format +
+		"&c=" + deckClass +
+		"&d=" + dust +
+		"&key=" + auth.KEY;
+
+	fetch(url, {method: 'GET'})
+
 	var fields = [
 		{
 			"name": "Class Cards",
@@ -243,7 +256,7 @@ function formatDeck(deckData, cardData) {
 
 	return {
 		"author": {
-			"name": deckClass + " (" + (deckData['format'] == 1 ? "Wild" : "Standard") + ")",
+			"name": deckClass + " (" + format + ")",
 			"icon_url": (classes.length == 1 ? config.CLASSES[deckClass]['icon'] : "")
 		},
 		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : config.CLASSES['Neutral']['color']),
