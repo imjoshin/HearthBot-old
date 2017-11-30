@@ -255,6 +255,7 @@ function formatDeck(deckData, cardData) {
 }
 
 function formatDeckCard(card) {
-	var emoji = card['cost'] in config.MANA_EMOJI ? config.MANA_EMOJI[card['cost']] : card['cost']
-	return emoji + " " + card['count'] + "x " + card['name'];
+	var cost = card['cost'] in config.MANA_EMOJI ? config.MANA_EMOJI[card['cost']] : card['cost']
+	var rarity = config.RARITIES[card['rarity']]['emoji'];
+	return card['count'] + "x " + card['name'];
 }
