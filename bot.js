@@ -50,7 +50,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				showDetails = config.PRINT_CARD_DETAILS;
 
 				if (name.length < config.CARD_LENGTH_MIN || cardsSent >= config.CARD_LIMIT) {
-					return
+					return;
 				}
 
 				// show only card
@@ -59,7 +59,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					name = name.slice(0, -1 * config.CARD_ONLY_SUFFIX.length);
 				}
 
-				var searchType = showDetails ? '&t=detail' : '&t=card';
+				var searchType = showDetails ? '&t=detail' : '&t=card' + (!showDetails ? '&conly' : '');
 				var details = "&key=" + auth.KEY + "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 
 				// get card data
@@ -69,7 +69,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				})
 				.then(function(card) {
 					if (!("error" in card)) {
-						if (showDetails) {
+						// if card length is 1, only the image exists
+						if (Object.keys(card).length > 1) {
 							embed = formatCard(card);
 						} else {
 							embed = {
