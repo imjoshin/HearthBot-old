@@ -3,6 +3,7 @@ var logger = require('winston');
 var auth = require('./auth');
 var config = require('./config');
 var deckstrings = require('deckstrings');
+var attrSearch = require('./attr-search');
 var fetch = require('node-fetch');
 fetch.Promise = require('bluebird');
 
@@ -84,6 +85,35 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						bot.sendMessage({
 							to: channelID,
 							embed: embed
+						});
+					}
+					// HERE
+					else {
+						var searchResults = attrSearch(name);
+						searchResults.forEach(cName => {
+							fetch(config.API_URL + "name=" + cName + collectible + searchType + details, {method: 'GET'})
+							.then(function(response) {
+								return response.json();
+							})
+							.then(function(newCard) {
+								if (!("error" in newCard)) {
+									if (Object.keys(newCard).length > 1) {
+										embed = formatCard(newCard);
+									} else {
+										embed = {
+											"color": config.CLASSES['Neutral']['color'],
+											"image": {
+												"url": card['img']
+											}
+										};
+									}
+
+									bot.sendMessage({
+										to: channelID,
+										embed: embed
+									});
+								}
+							});
 						});
 					}
 				});
