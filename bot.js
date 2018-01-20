@@ -103,7 +103,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 										embed = {
 											"color": config.CLASSES['Neutral']['color'],
 											"image": {
-												"url": card['img']
+												"url": newCard['img']
 											}
 										};
 									}
