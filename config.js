@@ -79,35 +79,11 @@ config.search.CLASS = [
 	"neutral"
 ];
 config.search.TEXT = [ //!
-	"adapt",
+	...config.KEYWORDS,
 	"gain",
 	"restore",
 	"holding",
-	"draw",
-	"recruit",
-	"battlecry",
-	"charge",
-	"choose one",
-	"combo",
-	"counter",
-	"deathrattle",
-	"discover",
-	"enrage",
-	"freeze",
-	"immune",
-	"inspire",
-	"lifesteal",
-	"mega-windfury",
-	"overload",
-	"poisonous",
-	"quest",
-	"silence",
-	"stealth",
-	"spell damage",
-	"taunt",
-	"secret",
-	"divine shield",
-	"windfury"
+	"draw"
 ];
 config.search.SAFE = [
 	...config.search.RARITY,
