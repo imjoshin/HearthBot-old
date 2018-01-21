@@ -11,6 +11,7 @@ config.ALLOW_CARD_ONLY = true; // allow suffix to only show card
 config.CARD_ONLY_SUFFIX = "+c"; // suffix to only show card
 config.ALLOW_SEARCH_TYPE_OVERRIDE = true; // allow suffix to show uncollectible cards
 config.SEARCH_TYPE_OVERRIDE_SUFFIX = "+u"; // suffix to show uncollectible cards as well if COLLECTIBLE_ONLY is set to false
+config.searchTypeOverride = config.COLLECTIBLE_ONLY;
 config.KEYWORDS = [ // keywords to bold
 	"Adapt",
 	"Battlecry",
