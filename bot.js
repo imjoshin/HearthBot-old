@@ -61,7 +61,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						name = name.replace(config.CARD_ONLY_SUFFIX, "");
 					}
 					if(name.match(flags).indexOf(config.SEARCH_TYPE_OVERRIDE_SUFFIX) > -1 && config.ALLOW_SEARCH_TYPE_OVERRIDE) {
-						config.COLLECTIBLE_ONLY = false;
+						config.searchTypeOverride = true;
 						name = name.replace(config.SEARCH_TYPE_OVERRIDE_SUFFIX, "");
 					}
 				}
