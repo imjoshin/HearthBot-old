@@ -62,6 +62,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				var searchType = showDetails ? '&t=detail' : '&t=card' + (!showDetails ? '&conly' : '');
 				var details = "&key=" + auth.KEY + "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 
+				if (config.DEV) {
+					details += '&dev';
+				}
+
 				// get card data
 				fetch(config.API_URL + "name=" + name + collectible + searchType + details, {method: 'GET'})
 				.then(function(response) {
@@ -139,7 +143,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 });
 
 function formatCard(card) {
-	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+	cardText = '';
+
+	if (card['text']) {
+		cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+	}
 
 	// bold keywords
 	config.KEYWORDS.forEach(function(keyword) {
