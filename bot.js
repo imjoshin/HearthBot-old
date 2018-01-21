@@ -3,7 +3,6 @@ var logger = require('winston');
 var auth = require('./auth');
 var config = require('./config');
 var deckstrings = require('deckstrings');
-var attrSearch = require('./attr-search');
 var fetch = require('node-fetch');
 fetch.Promise = require('bluebird');
 
