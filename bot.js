@@ -146,7 +146,7 @@ function formatCard(card) {
 	cardText = '';
 
 	if (card['text']) {
-		cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+		cardText = card['text'].trim().replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
 	}
 
 	// bold keywords
@@ -177,7 +177,7 @@ function formatCard(card) {
 	// other info
 	var text = cardText != '' ? ("\n\n*" + cardText + "*") : '';
 	var set = "Set: " + card['set'];
-
+	
 	return {
 		"author": {
 			"name": card['name'],
