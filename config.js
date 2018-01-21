@@ -1,4 +1,4 @@
-var config = { search: {} };
+var config = {};
 
 // Card config
 config.ALLOW_CARDS = true;
@@ -40,7 +40,7 @@ config.KEYWORDS = [ // keywords to bold
 ];
 
 // Going to have to add some trigger words for the search functionality
-
+config.search = {};
 /* Not an option for now
 config.search.TRIBE = [ //!
 	"dragon",
