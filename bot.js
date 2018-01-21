@@ -55,7 +55,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				}
 
 				// do flag stuff
-				var flags = new RegExp(`(${config.CARD_ONLY_SUFFIX}|${config.SEARCH_TYPE_OVERRIDE_SUFFIX}`, "g");
+				var flags = new RegExp(`(${config.CARD_ONLY_SUFFIX}|${config.SEARCH_TYPE_OVERRIDE_SUFFIX})`, "g");
 				if (name.search(flags) > -1) {
 					if(name.match(flags).indexOf(config.CARD_ONLY_SUFFIX) > -1 && config.ALLOW_CARD_ONLY) {
 						showDetails = false;
