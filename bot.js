@@ -53,10 +53,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 					return;
 				}
 
-				// show only card
-				if (config.ALLOW_CARD_ONLY && name.slice(-1 * config.CARD_ONLY_SUFFIX.length) == config.CARD_ONLY_SUFFIX) {
-					showDetails = false;
-					name = name.slice(0, -1 * config.CARD_ONLY_SUFFIX.length);
+				// do flag stuff
+				var flags = new RegExp(`(${config.CARD_ONLY_SUFFIX}|${config.SEARCH_TYPE_OVERRIDE_SUFFIX})`, "g");
+				if (name.search(flags) > -1) {
+					if(name.match(flags).indexOf(config.CARD_ONLY_SUFFIX) > -1 && config.ALLOW_CARD_ONLY) {
+						showDetails = false;
+						name = name.replace(config.CARD_ONLY_SUFFIX, "");
+					}
+					if(name.match(flags).indexOf(config.SEARCH_TYPE_OVERRIDE_SUFFIX) > -1 && config.ALLOW_SEARCH_TYPE_OVERRIDE) {
+						collectible = "";
+						name = name.replace(config.SEARCH_TYPE_OVERRIDE_SUFFIX, "");
+					}
 				}
 
 				var searchType = showDetails ? '&t=detail' : '&t=card' + (!showDetails ? '&conly' : '');

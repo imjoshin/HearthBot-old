@@ -4,10 +4,13 @@ var config = {};
 config.ALLOW_CARDS = true;
 config.CARD_LIMIT = 4; // max cards to print from one message
 config.CARD_LENGTH_MIN = 3; // minimum card string length to search
+config.SEARCH_RESULT_LIMIT = 10; // max results when searching for a card
 config.COLLECTIBLE_ONLY = true; // only show collectible cards
 config.PRINT_CARD_DETAILS = true; // print details instead of the card image
 config.ALLOW_CARD_ONLY = true; // allow suffix to only show card
 config.CARD_ONLY_SUFFIX = "+c"; // suffix to only show card
+config.ALLOW_SEARCH_TYPE_OVERRIDE = true; // allow suffix to show uncollectible cards
+config.SEARCH_TYPE_OVERRIDE_SUFFIX = "+u"; // suffix to show uncollectible cards as well if COLLECTIBLE_ONLY is set to false
 config.KEYWORDS = [ // keywords to bold
 	"Adapt",
 	"Battlecry",
@@ -34,7 +37,67 @@ config.KEYWORDS = [ // keywords to bold
 	"Spell Damage",
 	"Taunt",
 	"Windfury"
+];
+
+// Going to have to add some trigger words for the search functionality
+config.search = {};
+/* Not an option for now
+config.search.TRIBE = [ //!
+	"dragon",
+	"totem",
+	"demon",
+	"pirate",
+	"beast",
+	"elemental",
+	"mech",
+	"murloc"
+];
+*/
+config.search.RARITY = [
+	"free",
+	"common",
+	"rare",
+	"epic",
+	"legendary"
+];
+config.search.TYPE = [
+	"minion",
+	"spell",
+	"weapon",
+	"hero"
+];
+config.search.CLASS = [
+	"druid",
+	"shaman",
+	"mage",
+	"warlock",
+	"warrior",
+	"hunter",
+	"priest",
+	"paladin",
+	"rogue",
+	"neutral"
+];
+config.search.TEXT = [ //!
+	...config.KEYWORDS,
+	"gain",
+	"restore",
+	"holding",
+	"draw"
+];
+config.search.SAFE = [
+	...config.search.RARITY,
+	...config.search.TYPE,
+	...config.search.CLASS
 ]
+config.search.UNSAFE = [
+	//...config.search.TRIBE,
+	...config.search.TEXT
+];
+config.search.ALL = [
+	...config.search.SAFE,
+	...config.search.UNSAFE
+];
 
 // Deck config
 config.ALLOW_DECKS = true;
