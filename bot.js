@@ -98,13 +98,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	}
 
 	if (config.ALLOW_DECKS) {
-		var decks = message.match(/AAE(.*?)(=|$)/g);
+		var decks = message.match(/AAE((.*?)(=|$|\s))+/g);
 
 		if (decks && decks.length) {
 			// limit number of decks
-			decks = decks.slice(0, config.DECK_LIMIT);
+			decksSent = 0;
 
 			decks.forEach(function(deck) {
+				if (decksSent > config.DECK_LIMIT) {
+					return;
+				}
+
 				try {
 					decoded = deckstrings.decode(deck);
 				} catch (err){
@@ -137,6 +141,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 						logger.error(cardData['error']);
 					}
 				});
+
+				decksSent++;
 			});
 		}
 	}
@@ -177,7 +183,7 @@ function formatCard(card) {
 	// other info
 	var text = cardText != '' ? ("\n\n*" + cardText + "*") : '';
 	var set = "Set: " + card['set'];
-	
+
 	return {
 		"author": {
 			"name": card['name'],
