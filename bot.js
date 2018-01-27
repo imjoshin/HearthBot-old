@@ -30,9 +30,16 @@ bot.on('disconnect', function(erMsg, code) {
 bot.on('message', function (user, userID, channelID, message, evt) {
 	// check if we are allowed to post here and this isn't a bot message
 	if (
-		config.CHANNEL_WHITELIST.length && config.CHANNEL_WHITELIST.indexOf(channelID) < 0 ||
-		config.CHANNEL_BLACKLIST.length && config.CHANNEL_BLACKLIST.indexOf(channelID) >= 0 ||
-		userID == bot.id
+		config.DEV && config.CHANNEL_DEV.indexOf(channelID) < 0 ||
+		userID == bot.id ||
+		(
+			!config.DEV &&
+			(
+				config.CHANNEL_WHITELIST.length && config.CHANNEL_WHITELIST.indexOf(channelID) < 0 ||
+				config.CHANNEL_BLACKLIST.length && config.CHANNEL_BLACKLIST.indexOf(channelID) >= 0
+			)
+		)
+
 	) {
 		return;
 	};

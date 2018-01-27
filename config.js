@@ -1,5 +1,8 @@
 var config = {};
 
+config.DEV = true;
+config.API_URL = "http://jjdev.io/hearthbot/data.php?";
+
 // Card config
 config.ALLOW_CARDS = true;
 config.CARD_LIMIT = 4; // max cards to print from one message
@@ -34,7 +37,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Spell Damage",
 	"Taunt",
 	"Windfury"
-]
+];
 
 // Deck config
 config.ALLOW_DECKS = true;
@@ -43,13 +46,20 @@ config.DECK_LIMIT = 1; // max decks to print from one message
 // Misc Settings
 
 // only use whitelist OR blacklist
-config.CHANNEL_WHITELIST = [];
+config.CHANNEL_WHITELIST = [
+];
 config.CHANNEL_BLACKLIST = [
 	"377296505096110080", // dev testing
 	"301092519981088771", // barn general
 	"377184484161748993", // hs competitive
-	"377183405047021578", // hs creative
+	// "377183405047021578", // hs creative
 	"127179055773646848", // hs off topic
+	"406616955257356298", // hearthdev
+];
+
+config.CHANNEL_DEV = [
+	"377296505096110080", // hydrotoTest #test
+	"406616955257356298", // hearthdev
 ];
 
 // Emoji Settings
@@ -72,7 +82,7 @@ config.MANA_EMOJI = {
 	11: "<:mana11:385569332836433921>",
 	12: "<:mana12:385569338780024832>",
 	25: "<:mana25:385569346229108737>"
-}
+};
 
 config.FORMATS = {
 	"1": "Wild",
@@ -149,7 +159,5 @@ config.CLASSES = {
 		"icon": ""
 	}
 };
-
-config.API_URL = "http://jjdev.io/hearthbot/data.php?";
 
 module.exports = config;
