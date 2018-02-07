@@ -159,7 +159,7 @@ function formatCard(card) {
 	cardText = '';
 
 	if (card['text']) {
-		cardText = card['text'].trim().replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
+		cardText = card['text'].trim().replace(/\[x\]/g, "").replace(/[ ]+/g, " ").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1").trim();
 	}
 
 	// bold keywords

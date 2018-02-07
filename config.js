@@ -1,6 +1,6 @@
 var config = {};
 
-config.DEV = false;
+config.DEV = true;
 config.API_URL = "http://jjdev.io/hearthbot/data.php?";
 
 // Card config
