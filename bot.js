@@ -266,12 +266,12 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 	var fields = [
 		{
 			"name": "Class Cards",
-			"value": classCardsText.join('\n'),
+			"value": classCards.length ? classCardsText.join('\n') : ":no_entry:",
 			"inline": true
 		},
 		{
 			"name": "Neutral Cards",
-			"value": neutralCardsText.join('\n'),
+			"value": neutralCards.length ? neutralCardsText.join('\n') : ":no_entry:",
 			"inline": true
 		}
 	];
@@ -285,7 +285,7 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 		"fields": fields,
 		"footer": {
 			"icon_url": "http://joshjohnson.io/images/dust.png",
-			"text": dust
+			"text": "" + dust
 		}
 	};
 }
