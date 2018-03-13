@@ -21,6 +21,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Deathrattle",
 	"Discover",
 	"Divine Shield",
+	"Echo",
 	"Enrage",
 	"Freeze",
 	"Immune",
@@ -31,10 +32,12 @@ config.KEYWORDS = [ // keywords to bold
 	"Poisonous",
 	"Quest",
 	"Recruit",
+	"Rush",
 	"Secret",
 	"Silence",
 	"Stealth",
 	"Spell Damage",
+	"Start of Game",
 	"Taunt",
 	"Windfury"
 ];
