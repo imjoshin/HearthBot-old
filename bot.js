@@ -106,6 +106,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 	if (config.ALLOW_DECKS) {
 		var decks = message.match(/AAE((.*?)(=|$|\s))+/g);
+		var deckNameMatch = message.match(/### (.*?)+/g);
 
 		if (decks && decks.length) {
 			// limit number of decks
@@ -115,6 +116,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				if (decksSent > config.DECK_LIMIT) {
 					return;
 				}
+
+				var deckName = deckNameMatch && deckNameMatch.length ? deckNameMatch[0].substring(4) : null;
 
 				try {
 					decoded = deckstrings.decode(deck);
@@ -140,9 +143,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				.then(function(cardData) {
 					userInfo = "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 					if (!("error" in cardData)) {
+						var deckFormat = formatDeck(decoded, cardData, deck, deckName, user, userID, channelID);
+
 						bot.sendMessage({
 							to: channelID,
-							embed: formatDeck(decoded, cardData, deck, userInfo)
+							message: deckFormat['message'],
+							embed: deckFormat['embed'],
 						});
 					} else {
 						logger.error(cardData['error']);
@@ -207,7 +213,7 @@ function formatCard(card) {
 	}
 }
 
-function formatDeck(deckData, cardData, deck, userInfo) {
+function formatDeck(deckData, cardData, deck, deckName, user, userID, channelID) {
 	var blankField = {"value": ""};
 
 	var classCards = [];
@@ -253,6 +259,8 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 
 	var format = deckData['format'] == 1 ? "Wild" : "Standard";
 
+	var userInfo = "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
+
 	// log deck in db (will probably replace with parsing on api side eventually)
 	var url = config.API_URL + userInfo +
 		"&deck=" + deck +
@@ -276,7 +284,7 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 		}
 	];
 
-	return {
+	var embed = {
 		"author": {
 			"name": deckClass + " (" + format + ")",
 			"icon_url": (classes.length == 1 ? config.CLASSES[deckClass]['icon'] : "")
@@ -287,6 +295,13 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 			"icon_url": "http://joshjohnson.io/images/dust.png",
 			"text": "" + dust
 		}
+	};
+
+	var message = `<@${userID}>'s ${deckName ? `**${deckName}** ` : ''}deck:`;
+
+	return {
+		"embed": embed,
+		"message": message,
 	};
 }
 
