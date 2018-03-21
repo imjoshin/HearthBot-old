@@ -54,7 +54,7 @@ config.CHANNEL_WHITELIST = [
 config.CHANNEL_BLACKLIST = [
 	"377296505096110080", // dev testing
 	"301092519981088771", // barn general
-	"377184484161748993", // hs competitive
+	// "377184484161748993", // hs competitive
 	// "377183405047021578", // hs creative
 	"127179055773646848", // hs off topic
 	"406616955257356298", // hearthdev
