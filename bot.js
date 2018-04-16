@@ -201,6 +201,7 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 	var neutralCards = [];
 	var dust = 0;
 	var classes = [];
+	var curve = [0,0,0,0,0,0,0,0];
 
 	deckData['heroes'].forEach(function(hero) {
 		classes.push(cardData[hero]['class']);
@@ -219,6 +220,8 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 
 		rarity = cardData[card[0]]['rarity'];
 		dust += config.RARITIES[rarity]['dust'] * card[1];
+		
+		curve[card_cost] += cardData[card[0]]['count'];
 	});
 
 	var classCardsText = [];
@@ -260,6 +263,11 @@ function formatDeck(deckData, cardData, deck, userInfo) {
 			"name": "Neutral Cards",
 			"value": neutralCardsText.join('\n'),
 			"inline": true
+		},
+		{
+			"name": "Mana Curve",
+			"value": "```Perl"+curveGen(curve)+"```",
+			"inline": false
 		}
 	];
 
