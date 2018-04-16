@@ -8,6 +8,7 @@
     "winston": "~2.4.0",
     "discord.io": "~2.5.3",
     "node-fetch": "~1.7.3",
-    "bluebird": "~3.5.1"
+    "bluebird": "~3.5.1",
+    "hs-mana-curve": "^1.0.1"
   }
 }
