@@ -2,7 +2,6 @@ var Discord = require('discord.io');
 var logger = require('winston');
 var auth = require('./auth');
 var config = require('./config');
-var deckstrings = require('deckstrings');
 var fetch = require('node-fetch');
 fetch.Promise = require('bluebird');
 
