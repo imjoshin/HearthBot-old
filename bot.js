@@ -3,7 +3,6 @@ var logger = require('winston');
 var auth = require('./auth');
 var config = require('./config');
 var deckstrings = require('deckstrings');
-var curveGen = require('hs-mana-curve');
 var fetch = require('node-fetch');
 fetch.Promise = require('bluebird');
 
