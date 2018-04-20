@@ -42,62 +42,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 	if (config.ALLOW_CARDS) {
 		var cards = message.match(/\[\[(.*?)\]\]/g);
 		if (cards && cards.length) {
-			// limit number of cards
-			cardsSent = 0
-
-			cards.forEach(function(card) {
-				name = card.replace(/\[/g, '').replace(/\]/g, '');
-				collectible = config.COLLECTIBLE_ONLY ? "&collectible=1" : "";
-				showDetails = config.PRINT_CARD_DETAILS;
-
-				if (name.length < config.CARD_LENGTH_MIN || cardsSent >= config.CARD_LIMIT) {
-					return;
-				}
-
-				// do flag stuff
-				var flags = new RegExp(`(${config.CARD_ONLY_SUFFIX}|${config.SEARCH_TYPE_OVERRIDE_SUFFIX})`, "g");
-				if (name.search(flags) > -1) {
-					if(name.match(flags).indexOf(config.CARD_ONLY_SUFFIX) > -1 && config.ALLOW_CARD_ONLY) {
-						showDetails = false;
-						name = name.replace(config.CARD_ONLY_SUFFIX, "");
-					}
-					if(name.match(flags).indexOf(config.SEARCH_TYPE_OVERRIDE_SUFFIX) > -1 && config.ALLOW_SEARCH_TYPE_OVERRIDE) {
-						collectible = "";
-						name = name.replace(config.SEARCH_TYPE_OVERRIDE_SUFFIX, "");
-					}
-				}
-
-				var searchType = showDetails ? '&t=detail' : '&t=card' + (!showDetails ? '&conly' : '');
-				var details = "&key=" + auth.KEY + "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
-
-				// get card data
-				fetch(config.API_URL + "name=" + name + collectible + searchType + details, {method: 'GET'})
-				.then(function(response) {
-					return response.json();
-				})
-				.then(function(card) {
-					if (!("error" in card)) {
-						// if card length is 1, only the image exists
-						if (Object.keys(card).length > 1) {
-							embed = formatCard(card);
-						} else {
-							embed = {
-								"color": config.CLASSES['Neutral']['color'],
-								"image": {
-									"url": card['img']
-								}
-							};
-						}
-
-						bot.sendMessage({
-							to: channelID,
-							embed: embed
-						});
-					}
-				});
-
-				cardsSent++;
-			});
+			var parseCard = require("./lib/card");
+			parseCard(cards, user, userID, channelID, config, fetch);
 		}
 	}
 
@@ -145,54 +91,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 		}
 	}
 });
-
-function formatCard(card) {
-	cardText = card['text'].replace(/\[x\]/g, "").replace(/\\n|_/g, " ").replace(/\$([0-9]+)/g, "$1").replace(/\(([0-9]+)\)/g, "$1");
-
-	// bold keywords
-	config.KEYWORDS.forEach(function(keyword) {
-		if (cardText.indexOf(keyword) >= 0)
-		{
-			if (keyword == "Recruit") {
-				var regex = new RegExp("^(?!Silver Hand )(Recruit[\.|:]?)", "g");
-			} else {
-				var regex = new RegExp("(" + keyword + "[\.|:]?)", "g");
-			}
-			cardText = cardText.replace(regex, "**$1**");
-		}
-	});
-
-	// get details
-	var type = "**Type:** " + card['type'] + "\n";
-	var classt = "**Class:** " + card['class'] + "\n";
-	var rarity = "**Rarity:** " + card['rarity'];
-
-	// get stats
-	var attackEmoji = card['type'] == 'Weapon' ? config.WEAPON_ATTACK_EMOJI : config.ATTACK_EMOJI;
-	var healthEmoji = card['type'] == 'Weapon' ? config.WEAPON_HEALTH_EMOJI : config.HEALTH_EMOJI;
-	var attack = 'attack' in card && card['attack'] != null ? (attackEmoji + ' **' + card['attack'] + '**  ') : '';
-	var health = 'health' in card && card['health'] != null ? (healthEmoji + ' **' + card['health'] + '**  ') : '';
-	var stats = (attack != '' || health != '') ? (attack + health + "\n\n") : "";
-
-	// other info
-	var text = cardText != '' ? ("\n\n*" + cardText + "*") : '';
-	var set = "Set: " + card['set'];
-
-	return {
-		"author": {
-			"name": card['name'],
-			"icon_url": "https://jjdev.io/hearthbot/img/mana-" + card['cost'] + ".png"
-		},
-		"color": config.RARITIES[card['rarity']]['color'],
-		"description": stats + type + classt + rarity + text,
-		"footer": {
-			"text": set
-		},
-		"thumbnail": {
-			"url": card['img']
-		}
-	}
-}
 
 function formatDeck(deckData, cardData, deck, userInfo) {
 	var blankField = {"value": ""};
