@@ -292,7 +292,7 @@ function formatDeck(deckData, cardData, deck, deckName, user, userID, channelID)
 		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : config.CLASSES['Neutral']['color']),
 		"fields": fields,
 		"footer": {
-			"icon_url": "http://joshjohnson.io/images/dust.png",
+			"icon_url": "https://cdn.discordapp.com/emojis/230175397243781121.png",
 			"text": "" + dust
 		}
 	};

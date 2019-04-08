@@ -26,7 +26,9 @@ config.KEYWORDS = [ // keywords to bold
 	"Freeze",
 	"Immune",
 	"Inspire",
+	"Lackey",
 	"Lifesteal",
+	"Magnetic",
 	"Mega-Windury",
 	"Overload",
 	"Poisonous",
@@ -39,6 +41,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Spell Damage",
 	"Start of Game",
 	"Taunt",
+	"Twinspell",
 	"Windfury"
 ];
 
