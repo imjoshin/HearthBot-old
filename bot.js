@@ -143,7 +143,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 				.then(function(cardData) {
 					userInfo = "&u=" + user + "&uid=" + userID + "&cid=" + channelID;
 					if (!("error" in cardData)) {
-						var deckFormat = formatDeck(decoded, cardData, deck, deckName, user, userID, channelID);
+						var deckFormat = formatDeck(deck, decoded, cardData, deck, deckName, user, userID, channelID);
 
 						bot.sendMessage({
 							to: channelID,
@@ -213,7 +213,7 @@ function formatCard(card) {
 	}
 }
 
-function formatDeck(deckData, cardData, deck, deckName, user, userID, channelID) {
+function formatDeck(deckCode, deckData, cardData, deck, deckName, user, userID, channelID) {
 	var blankField = {"value": ""};
 
 	var classCards = [];
@@ -281,7 +281,7 @@ function formatDeck(deckData, cardData, deck, deckName, user, userID, channelID)
 			"name": "Neutral Cards",
 			"value": neutralCards.length ? neutralCardsText.join('\n') : ":no_entry:",
 			"inline": true
-		}
+		},
 	];
 
 	var embed = {
@@ -289,6 +289,8 @@ function formatDeck(deckData, cardData, deck, deckName, user, userID, channelID)
 			"name": deckClass + " (" + format + ")",
 			"icon_url": (classes.length == 1 ? config.CLASSES[deckClass]['icon'] : "")
 		},
+		"title": "View Deckbuilder",
+		"url": "https://playhearthstone.com/en-us/deckbuilder?deckcode=" + deckCode,
 		"color": (classes.length == 1 ? config.CLASSES[deckClass]['color'] : config.CLASSES['Neutral']['color']),
 		"fields": fields,
 		"footer": {
