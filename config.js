@@ -33,6 +33,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Overload",
 	"Poisonous",
 	"Quest",
+	"Reborn",
 	"Recruit",
 	"Rush",
 	"Secret",
