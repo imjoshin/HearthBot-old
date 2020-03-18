@@ -21,6 +21,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Deathrattle",
 	"Discover",
 	"Divine Shield",
+	"Dormant",
 	"Echo",
 	"Enrage",
 	"Freeze",
@@ -30,6 +31,7 @@ config.KEYWORDS = [ // keywords to bold
 	"Lifesteal",
 	"Magnetic",
 	"Mega-Windury",
+	"Outcast",
 	"Overload",
 	"Poisonous",
 	"Quest",
@@ -61,12 +63,12 @@ config.CHANNEL_BLACKLIST = [
 	// "377184484161748993", // hs competitive
 	// "377183405047021578", // hs creative
 	"127179055773646848", // hs off topic
-	"406616955257356298", // hearthdev
+	"406616955257356298", // personal test
 ];
 
 config.CHANNEL_DEV = [
 	"377296505096110080", // hydrotoTest #test
-	"406616955257356298", // hearthdev
+	"406616955257356298", // personal test
 ];
 
 // Emoji Settings
@@ -160,6 +162,10 @@ config.CLASSES = {
 	"Warrior": {
 		"color": 0xa80000,
 		"icon": "https://jjdev.io/hearthbot/img/Warrior.png"
+	},
+	"Demon Hunter": {
+		"color": 0x173836,
+		"icon": "https://jjdev.io/hearthbot/img/DemonHunter.png"
 	},
 	"Neutral": {
 		"color": 0x34363B,
